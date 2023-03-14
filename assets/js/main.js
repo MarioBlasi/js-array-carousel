@@ -36,6 +36,7 @@
 // eventListener
 // increment/descrement
 
+// creo un array di immagini images, che contiene i percorsi delle immagini che mostriamo nello slider.
 const images = [
   "./assets/img/01.webp",
   "./assets/img/02.webp",
@@ -43,33 +44,46 @@ const images = [
   "./assets/img/04.webp",
   "./assets/img/05.webp",
 ];
-
+//selezioniamo gli elementi HTML dall'albero del documento usando document.querySelector()
+// selezionati gli elementi HTML corrispondenti alla classe .slider, all'elemento HTML con classe .slide-img,
+//ai bottoni di navigazione con classe .prev-btn e .next-btn e alle miniature con classe .thumbnails.
 const slider = document.querySelector(".slider");
 const slideImage = slider.querySelector(".slide-img");
 const prevBtn = slider.querySelector(".prev-btn");
 const nextBtn = slider.querySelector(".next-btn");
 const thumbnails = slider.querySelector(".thumbnails");
 
+//dichiariamo una variabile activeSlideIndex dove il valore é impostato su zero
+//perché corrisponde alla prima imm dell'array
 let activeSlideIndex = 0;
 
-// create thumbnail images
+// creiamo un ciclo for per creare le miniature delle immagini nello slider. Per ogni immagine nell'array images,
+//viene creata una nuova immagine HTML usando document.createElement()
+// che verrá poi aggiunta alla lista delle miniature e configurata con il percorso dell'immagine
 for (let i = 0; i < images.length; i++) {
   const thumbnailImage = document.createElement("img");
   thumbnailImage.classList.add("thumbnail");
   thumbnailImage.src = images[i];
+  // Se l'indice dell'immagine corrente è uguale all'indice dell'immagine attiva,
+  // viene aggiunta alla classe .active
   if (i === activeSlideIndex) {
     thumbnailImage.classList.add("active");
   }
+  //aggiungiamo un listener per l'evento di click, in modo che quando l'utente fa clic sulla miniature,
+  // viene chiamata la funzione setActiveSlide() per impostare l'immagine attiva.
   thumbnailImage.addEventListener("click", () => {
     setActiveSlide(i);
   });
   thumbnails.appendChild(thumbnailImage);
 }
 
-// set initial slide image
+//viene impostata l'immagine attiva iniziale
 slideImage.src = images[activeSlideIndex];
 
 // set event listeners for prev and next buttons
+//Vengono aggiunti listener per gli eventi click sui bottoni di navigazione "precedente" e "successivo".
+//Quando viene cliccato il pulsante "precedente" e poi il "successivo"
+//viene chiamata la funzione setActiveSlide() con l'indice dell'immagine precedente e successiva.
 prevBtn.addEventListener("click", () => {
   setActiveSlide(activeSlideIndex - 1);
 });
@@ -78,11 +92,16 @@ nextBtn.addEventListener("click", () => {
   setActiveSlide(activeSlideIndex + 1);
 });
 
-// set active slide and thumbnail
+//  la funzione setActiveSlide() imposta l'immagine attiva e le miniature
+// in base all'indice specificato.
 function setActiveSlide(index) {
   const thumbnailsList = thumbnails.querySelectorAll(".thumbnail");
+  //La funzione rimuove la classe .active dalla miniature dell'immagine attiva
   thumbnailsList[activeSlideIndex].classList.remove("active");
+  //aggiunge la classe .active alla miniature dell'immagine specificata
+  //impostandola come immagine principale nello slider
   thumbnailsList[index].classList.add("active");
+  //aggiornata la variabile activeSlideIndex con l'indice dell'immagine appena impostata come attiva.
   slideImage.src = images[index];
   activeSlideIndex = index;
 
