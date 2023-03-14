@@ -1,5 +1,6 @@
 .carousel {
-  background-color: rgb(219, 228, 228);
+  background-size: 50%;
+  background-image: url(https://cafans.b-cdn.net/images/Category_36265/subcat_86634/xBBphESz_0506181207421sbpi.jpg);
   border: 2px solid rgba(0, 0, 0, 0.555);
   border-radius: 5rem;
 }
@@ -51,7 +52,7 @@
 
 .thumbnail.active {
   border-color: #fff;
-  opacity: 1;
+  opacity: 10;
 }
 button {
   text-align: center;
@@ -63,4 +64,5 @@ button {
 h1 {
   text-align: center;
   background-color: rgba(127, 255, 212, 0.527);
+  border-radius: 2rem;
 }
