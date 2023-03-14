@@ -41,11 +41,10 @@ const carouselContainer = document.querySelector(".carousel-container");
 
 // definiamo l'array di immagini
 const images = [
-  "img/01.webp",
-  "img/02.webp",
-  "img/03.webp",
-  "img/04.webp",
-  "img/05.webp",
+  "./assets/img/02.webp",
+  "./assets/img/03.webp",
+  "./assets/img/04.webp",
+  "./assets/img/05.webp",
 ];
 
 // selezioniamo l'elemento del DOM che conterrà le immagini
