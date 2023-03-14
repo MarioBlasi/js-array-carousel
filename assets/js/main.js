@@ -48,62 +48,56 @@ const images = [
   "img/05.webp",
 ];
 
-// passiamo sulle immagini e aggiungiamo un nuovo elemento alla DOM utilizzando for
+// selezioniamo l'elemento del DOM che conterrà le immagini
+const imagesElement = document.querySelector(".images");
+
+// aggiungiamo le immagini dinamicamente utilizzando un ciclo for e un template literal
 for (let i = 0; i < images.length; i++) {
-  const imgSrc = images[i];
-  console.log(imgElement);
-  //innerHTML
-  imagesElement.innerHTML += imgElement;
+  const imgElement = document.createElement("img");
+  imgElement.src = images[i];
+  imgElement.classList.add("slide");
+  if (i === 0) {
+    imgElement.classList.add("active");
+  }
+  imagesElement.appendChild(imgElement);
 }
 
-//next button
+// MILESTONE 3
+// Gestiamo il cambio di immagine attiva al click dell'utente sulle frecce tramite il
+// codice JavaScript:
+
+let activeImageIndex = 0;
+
+// selezioniamo il bottone next
 const nextEl = document.querySelector(".next");
 nextEl.addEventListener("click", function () {
-  console.log("cliccato next");
-
-  //select all slides
-  const slideImageElements = document.querySelectorAll(
-    ".slider > .images > img"
-  );
-  console.log(slideImageElements); // array [index]
-  // select the current slide
-
-  const currentSlide = slideImageElements[activeImage];
-  console.log(currentSlide);
-
-  currentSlide.classList.remove("active");
-
-  activeImage++;
-
-  console.log(activeImage);
-  const nextImage = slideImagesElements[activeImage];
-
-  console.log(nextImage);
-  nextImage.classList.add("active");
+  // selezioniamo tutti gli elementi immagine
+  const slideImageElements = document.querySelectorAll(".slide");
+  // rimuoviamo la classe active dall'immagine corrente
+  slideImageElements[activeImageIndex].classList.remove("active");
+  // incrementiamo l'indice dell'immagine attiva
+  activeImageIndex++;
+  // se l'indice supera la lunghezza dell'array delle immagini, lo riportiamo a zero per creare un ciclo infinito
+  if (activeImageIndex >= slideImageElements.length) {
+    activeImageIndex = 0;
+  }
+  // aggiungiamo la classe active all'immagine successiva
+  slideImageElements[activeImageIndex].classList.add("active");
 });
 
-//prev button
+// selezioniamo il bottone prev
 const prevEl = document.querySelector(".prev");
 prevEl.addEventListener("click", function () {
-  console.log("cliccato prev");
-
-  //select all slides
-  const slideImageElements = document.querySelectorAll(
-    ".slider > .images > img"
-  );
-  console.log(slideImageElements); // array [index]
-  // select the current slide
-
-  const currentSlide = slideImageElements[activeImage];
-  console.log(currentSlide);
-
-  currentSlide.classList.remove("active");
-
-  activeImage--;
-
-  console.log(activeImage);
-  const prevImage = slideImagesElements[activeImage];
-
-  console.log(prevImage);
-  prevImage.classList.add("active");
+  // selezioniamo tutti gli elementi immagine
+  const slideImageElements = document.querySelectorAll(".slide");
+  // rimuoviamo la classe active dall'immagine corrente
+  slideImageElements[activeImageIndex].classList.remove("active");
+  // incrementiamo l'indice dell'immagine attiva
+  activeImageIndex--;
+  // se l'indice supera la lunghezza dell'array delle immagini, lo riportiamo a zero per creare un ciclo infinito
+  if (activeImageIndex >= slideImageElements.length) {
+    activeImageIndex = 0;
+  }
+  // aggiungiamo la classe active all'immagine successiva
+  slideImageElements[activeImageIndex].classList.add("active");
 });
