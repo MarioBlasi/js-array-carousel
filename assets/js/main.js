@@ -36,67 +36,68 @@
 // eventListener
 // increment/descrement
 
-// selezioniamo l'elemento del DOM che conterrà le immagini
-const carouselContainer = document.querySelector(".carousel-container");
-
-// definiamo l'array di immagini
 const images = [
+  "./assets/img/01.webp",
   "./assets/img/02.webp",
   "./assets/img/03.webp",
   "./assets/img/04.webp",
   "./assets/img/05.webp",
 ];
 
-// selezioniamo l'elemento del DOM che conterrà le immagini
-const imagesElement = document.querySelector(".images");
+const slider = document.querySelector(".slider");
+const slideImage = slider.querySelector(".slide-img");
+const prevBtn = slider.querySelector(".prev-btn");
+const nextBtn = slider.querySelector(".next-btn");
+const thumbnails = slider.querySelector(".thumbnails");
 
-// aggiungiamo le immagini dinamicamente utilizzando un ciclo for e un template literal
+let activeSlideIndex = 0;
+
+// create thumbnail images
 for (let i = 0; i < images.length; i++) {
-  const imgElement = document.createElement("img");
-  imgElement.src = images[i];
-  imgElement.classList.add("slide");
-  if (i === 0) {
-    imgElement.classList.add("active");
+  const thumbnailImage = document.createElement("img");
+  thumbnailImage.classList.add("thumbnail");
+  thumbnailImage.src = images[i];
+  if (i === activeSlideIndex) {
+    thumbnailImage.classList.add("active");
   }
-  imagesElement.appendChild(imgElement);
+  thumbnailImage.addEventListener("click", () => {
+    setActiveSlide(i);
+  });
+  thumbnails.appendChild(thumbnailImage);
 }
 
-// MILESTONE 3
-// Gestiamo il cambio di immagine attiva al click dell'utente sulle frecce tramite il
-// codice JavaScript:
+// set initial slide image
+slideImage.src = images[activeSlideIndex];
 
-let activeImageIndex = 0;
-
-// selezioniamo il bottone next
-const nextEl = document.querySelector(".next");
-nextEl.addEventListener("click", function () {
-  // selezioniamo tutti gli elementi immagine
-  const slideImageElements = document.querySelectorAll(".slide");
-  // rimuoviamo la classe active dall'immagine corrente
-  slideImageElements[activeImageIndex].classList.remove("active");
-  // incrementiamo l'indice dell'immagine attiva
-  activeImageIndex++;
-  // se l'indice supera la lunghezza dell'array delle immagini, lo riportiamo a zero per creare un ciclo infinito
-  if (activeImageIndex >= slideImageElements.length) {
-    activeImageIndex = 0;
-  }
-  // aggiungiamo la classe active all'immagine successiva
-  slideImageElements[activeImageIndex].classList.add("active");
+// set event listeners for prev and next buttons
+prevBtn.addEventListener("click", () => {
+  setActiveSlide(activeSlideIndex - 1);
 });
 
-// selezioniamo il bottone prev
-const prevEl = document.querySelector(".prev");
-prevEl.addEventListener("click", function () {
-  // selezioniamo tutti gli elementi immagine
-  const slideImageElements = document.querySelectorAll(".slide");
-  // rimuoviamo la classe active dall'immagine corrente
-  slideImageElements[activeImageIndex].classList.remove("active");
-  // incrementiamo l'indice dell'immagine attiva
-  activeImageIndex--;
-  // se l'indice supera la lunghezza dell'array delle immagini, lo riportiamo a zero per creare un ciclo infinito
-  if (activeImageIndex >= slideImageElements.length) {
-    activeImageIndex = 0;
-  }
-  // aggiungiamo la classe active all'immagine successiva
-  slideImageElements[activeImageIndex].classList.add("active");
+nextBtn.addEventListener("click", () => {
+  setActiveSlide(activeSlideIndex + 1);
 });
+
+// set active slide and thumbnail
+function setActiveSlide(index) {
+  const thumbnailsList = thumbnails.querySelectorAll(".thumbnail");
+  thumbnailsList[activeSlideIndex].classList.remove("active");
+  thumbnailsList[index].classList.add("active");
+  slideImage.src = images[index];
+  activeSlideIndex = index;
+
+  // handle infinite carousel
+  if (activeSlideIndex === images.length - 1) {
+    nextBtn.setAttribute("disabled", true);
+    prevBtn.removeAttribute("disabled");
+  } else if (activeSlideIndex === 0) {
+    prevBtn.setAttribute("disabled", true);
+    nextBtn.removeAttribute("disabled");
+  } else {
+    nextBtn.removeAttribute("disabled");
+    prevBtn.removeAttribute("disabled");
+  }
+}
+
+// disable previous button on first slide
+prevBtn.setAttribute("disabled", true);
