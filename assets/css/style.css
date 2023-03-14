@@ -1,0 +1,9 @@
+body {
+  background-color: rgb(235, 235, 238);
+}
+.image img:not(.active) {
+  display: none;
+}
+img {
+  width: 20%;
+}

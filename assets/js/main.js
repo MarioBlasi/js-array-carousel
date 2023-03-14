@@ -28,3 +28,18 @@
 // che invece avrà un bordo colorato.
 
 // Al click delle frecce, oltre al cambio di immagine attiva, gestire il cambio di miniatura attiva.
+
+// tootls
+// array
+// const/ let
+// querySelector
+// eventListener
+// increment/descrement
+
+// passiamo sulle immagini e aggiungiamo un nuovo elemento alla DOM utilizzando for
+for (let i = 0; i < images.length; i++) {
+  const imgSrc = images[i];
+  console.log(imgElement);
+  //innerHTML
+  imagesElement.innerHTML += imgElement;
+}
